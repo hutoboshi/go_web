@@ -1,4 +1,4 @@
-FROM golang:1.18.2-bullseye AS deploy-builder
+FROM golang:1.23.2-bullseye AS deploy-builder
 
 WORKDIR /app
 
@@ -22,10 +22,11 @@ RUN go build -o -trimpath -ldflags "-w -s" -o app
 # -------------------------
 
   #ローカル開発環境で利用するホットリロード環境
-FROM golang:1.18.2 as dev
+FROM golang:1.23.2 as dev
 WORKDIR /app
 
-RUN go install github.com/cosmtrek/air@latest
+# RUN go install github.com/cosmtrek/air@latest
 # RUN go install github.com/air-verse/air@v1.61.1
+RUN go install github.com/air-verse/air@latest
 
-CMD [ "air" ]
+CMD ["air"]
